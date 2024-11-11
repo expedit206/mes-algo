@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>algo</title>
+</head>
+<style>*{
+    color: white;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-decoration: none;
+
+}
+input{
+    color: black;
+}
+body{
+    background-color: rgb(69, 69, 211);
+    font-size: 1.5rem;
+
+}
+.main{
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+margin-top: 3rem;
+}
+ul.liens{
+    
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-wrap: 0 0 0rem ;
+    width: 50vw;
+gap: 2rem;
+margin-top: 5rem;
+padding: 1rem 3rem;
+}
+.liens> li{
+    background-color: rgba(0, 0, 255, 0.479);
+    padding: 1rem 2rem;
+    border-radius: 15px;
+    cursor: pointer;
+    display: flex;
+
+}
+a{
+    text-align: center;
+}
+.liens >li >a:hover{
+color: yellow;
+}
+
+/* permutation */
+.avant,.apres{
+    display: grid;
+    grid-template-columns: 1fr 50px 50px;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    align-items: center;
+    justify-content: center;
+}
+.avant input,.apres input{
+    
+text-align: center;
+font-size: 1.5rem;
+padding: 0.5rem .5rem;
+font-weight: bold;
+}
+
+/* parite */
+.pari{
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.9rem;
+}
+h1{
+    text-align: center;</style>
+<body>
+    
+<div class="main">
+    <h1>Application de script a executer</h1>
+    <!-- <div class="lien">
+        <ul class="liens">
+            <li class="permutation"><a href="#">Permutation</a></li>
+            <li class="parite"><a href="#">Parité</a></li>
+            <li class="plusGrand"><a href="#">Nombre plus grand</a></li>
+            <li class="valide"><a href="#">Validité</a></li>
+            <li class="photocopie"><a href="#">Cout des photocopies</a></li>
+            <li class="age"><a href="#">Catégorie d'age</a></li>
+            <li class="mois"><a href="#">Mois de l'année</a></li>
+            <li class="multiplication"><a href="#">Multiplication</a></li>
+            <li class="somme"><a href="#">Somme Nombre pair et impair</a></li>
+        </ul>
+    </div> -->
+</div>
+    <script>main = document.querySelector('div')
+
+
+        const pageAccuei=()=>{
+        // let lienDiv=document.querySelector('.lien')
+        return main.innerHTML+=`
+        <div class="lien">
+        <ul class="liens">
+        <li class="parite"><a href="#">Parité</a></li>
+        <li class="plusGrand"><a href="#">Nombre plus grand</a></li>
+        <li class="valide"><a href="#">Validité</a></li>
+        <li class="photocopie"><a href="#">Cout des photocopies</a></li>
+        <li class="age"><a href="#">Catégorie d'age</a></li>
+        <li class="permutation"><a href="#">Permutation</a></li>
+                    <li class="mois"><a href="#">Mois de l'année</a></li>
+                    <li class="multiplication"><a href="#">Multiplication</a></li>
+                    <li class="somme"><a href="#">Somme Nombre pair et impair</a></li>
+                </ul>
+                </div>
+                ` 
+        
+        }
+        let permu
+        let parite
+        let plusGrand
+        let valide
+        let photocopie
+        let mois
+        let multiplication
+        let somme
+        let age
+        // document.addEventListener('load',pageAccuei())
+        function declaration(){
+        
+             permu=document.querySelector('.permutation')
+             parite=document.querySelector('.parite')
+             plusGrand=document.querySelector('.plusGrand')
+             valide=document.querySelector('.valide')
+             photocopie=document.querySelector('.photocopie')
+             age=document.querySelector('.age')
+             mois=document.querySelector('.mois')
+             multiplication=document.querySelector('.multiplication')
+             somme=document.querySelector('.somme')
+        }
+        const gestion_des_algo=()=>{
+            
+            pageAccuei()
+            
+            declaration()
+            permu.addEventListener('click',()=>{
+                main.innerHTML=""
+                
+                
+                algo.permutation()
+                gestion_des_algo()
+                
+                
+        
+            })
+            parite.addEventListener('click',()=>{
+                algo.parite()
+                gestion_des_algo()
+        
+            })
+            plusGrand.addEventListener('click',()=>{
+                algo.plusGrand()
+                gestion_des_algo()
+            })
+            valide.addEventListener('click',()=>{
+                algo.validite()
+                gestion_des_algo()
+            })
+            photocopie.addEventListener('click',()=>{
+                algo.coutPhotocopie()
+                gestion_des_algo()
+            })
+            age.addEventListener('click',()=>{
+                algo.categorie()
+                gestion_des_algo()
+            })
+            mois.addEventListener('click',()=>{
+                algo.mois()
+                gestion_des_algo()
+            })
+            multiplication.addEventListener('click',()=>{
+                algo.tableMultiplication()
+                gestion_des_algo()
+            })
+            somme.addEventListener('click',()=>{
+                algo.sommeImpair()
+                gestion_des_algo()
+            })
+            
+            // algo.permutation()
+        }
+        
+        const algo = {
+            
+            permutation:  function() {
+              
+                var nbre1 = prompt('entre le premier nombre A')
+                var nbre2 = prompt('entre le premier nombre B')
+        
+                var c = nbre1
+                nbre1 = nbre2
+                nbre2 = c
+        
+        
+                main.innerHTML += '<h1>PERMUTATION<h1>'
+                // avant permtation
+                let divAvant = document.createElement('div')
+                divAvant.innerHTML += '<br><br>Avant permutation &nbsp'
+                nb1Val = document.createElement('input')
+                nb2Val = document.createElement('input')
+                // nb1Val.setAttribute('class','k')
+                nb1Val.value = nbre1
+                nb2Val.value = nbre2
+                divAvant.appendChild(nb2Val)
+                divAvant.appendChild(nb1Val)
+                
+                main.appendChild(divAvant)
+                divAvant.className='avant'
+                console.log(nb2Val.value);
+        
+                // avant permtation
+                let divApres = document.createElement('div')
+                divApres.innerHTML += `<br><br>Apres permutation &nbsp`
+                nb3Val = document.createElement('input')
+                nb4Val = document.createElement('input')
+        
+                divApres.appendChild(nb3Val)
+                divApres.appendChild(nb4Val)
+                nb3Val.value = nbre1
+                nb4Val.value = nbre2
+        
+                main.appendChild(divApres)
+                divApres.className='apres'
+        
+            },
+        
+        
+            parite: function () {
+            pageAccuei()
+        
+        main.innerHTML=''
+                var nbre = prompt('entre un entier')
+        
+                let divParite = document.createElement('div')
+                divParite.textContent = `vous avez entré ${nbre}`
+                divParite.innerHTML += `<br><br>On a : ${nbre} / 2 =${
+                    nbre / 2
+                } <br><br>alors`
+                
+                if (nbre % 2 == 0) {
+        
+                    divParite.innerHTML += `<br>${nbre} est un nombre pair `
+                } else {
+                    divParite.innerHTML += `<br>${nbre} est un nombre impair `
+        
+                }
+                main.appendChild(divParite)
+        divParite.className='pari'
+        
+        
+            },
+        
+            plusGrand: function () {
+            pageAccuei()
+        
+                main.innerHTML=''
+                 a = prompt('Entre le premier nombre')
+                 b = prompt('Entre le deuxieme nombre')
+                 c = prompt('Entre le troisiem nombre')
+        
+                let divGrand = document.createElement('div')
+                divGrand.innerHTML += `Vous avez entrer ${a}, ${b} et ${c} </br><br> et le plus grand est :<br><br> `;
+                
+                if (a > b) {
+                    if (a > c) { 
+                        divGrand.innerHTML += a
+                    } else if(a<c){
+        
+                        divGrand.innerHTML += c
+                    }
+        
+                } else if (b > c) {
+                    divGrand.innerHTML += b
+        
+                } else {
+                    divGrand.innerHTML += c
+                    
+                }
+                main.appendChild(divGrand)
+        divGrand.className='pari'
+        
+        
+            },
+            
+            validite: function () {
+            pageAccuei()
+        
+                main.innerHTML=""
+                var nbvalide = prompt('Entrez un nombre entre 0 et 20')
+                let divGrand = document.createElement('div')
+        let choose
+                if (nbvalide > 0 && nbvalide < 20) {
+                    if (nbvalide > 10) {
+                        choose='Validé'
+                    } else {
+                        choose='Non Valide'
+                    }
+                } else {
+                    choose='pas compris entre 0 et 20'
+                    
+                }
+                divGrand.innerHTML += `Vous avez entrer ${nbvalide} et c'est :  ${choose}`;
+                main.appendChild(divGrand)
+        divGrand.className='pari'
+        
+            },
+        
+            coutPhotocopie: function(){
+            pageAccuei()
+               
+                 main.innerHTML=""
+                var nbPhoto=prompt('Entrez le nombre de photocopie')
+                let divPhoto = document.createElement('div')
+        
+                if(nbPhoto>=1 && nbPhoto<11){
+                    choose=0.25*nbPhoto
+                }else if(nbPhoto>10 && nbPhoto<31){
+                    choose=0.20*nbPhoto
+                
+                }else if(nbPhoto>30){
+                    choose=0.10*nbPhoto
+                }
+        
+        
+                divPhoto.innerHTML += `Vous avez entrer ${nbPhoto} et votre facture est de:  ${(choose.toFixed(2))} DH`;
+                main.appendChild(divPhoto)
+        divPhoto.className='pari'
+                
+            },
+            
+            categorie: function(){
+            pageAccuei()
+        
+                main.innerHTML=""
+                var age=prompt('Entrer votre age')
+                let divAge = document.createElement('div')
+                let cat
+                if(age>=6 &&age<=7){
+                    cat='Poussins'
+                }else if(age>=8 && age<=9){
+                    cat='Pupille'
+        
+                }else if(age>=10 && age <=11){
+                    cat='Minime'
+        
+                
+                }else if(age>=12){
+                    cat='Cadet'
+        
+                }
+        
+                
+                divAge.innerHTML += `Vous avez ${age} ans et vous appartenez a la categorie: <br> <br>  ${cat} `;
+                main.appendChild(divAge)
+        divAge.className='pari'
+        
+            },
+            
+            mois : function(){
+            pageAccuei()
+        
+                main.innerHTML=""
+                var mois=prompt('Entrer le numero du mois')
+                let divMois = document.createElement('div')
+        let choose
+        if(mois<=12 && mois>0){
+                switch(mois){
+                    case '1': choose='Janvier';break
+                    case '2': choose='Fevrier';break
+                    case '3': choose='Mars';break
+                    case '4': choose='Avril';break
+                    case '5': choose='Mai';break
+                    case '6': choose='Juin';break
+                    case '7': choose='Juillet';break
+                    case '8': choose='Aout';break
+                    case '9': choose='Septembre';break
+                    case '10': choose='Octobre';break
+                    case '11': choose='Novembre';break
+                    case '12': choose='Decembre';break
+                }
+                divMois.innerHTML += `le numero ${mois} correspond au mois de :  <br><br>${choose} `;
+            }else{
+                    alert('Entrez u numero entre 1 et 12')
+                }
+                main.appendChild(divMois)
+        divMois.className='pari'
+        
+            },
+        
+            tableMultiplication: function(){
+            pageAccuei()
+        
+                main.innerHTML=""
+                
+                var nbre =prompt('Entrer le nombre a multiplier')
+                let divmult = document.createElement('div')
+        
+                if(nbre>=0){
+                    divmult.innerHTML += `La table de multiplication par ${nbre} est : `;
+        for(let i=0; i<=nbre; i++){
+        
+                    divmult.innerHTML += `<br><br>${nbre} x ${i} = ${nbre*i}  `;
+                }
+                }else{
+                    alert('Entrez un nombre posotif')
+                }
+                main.appendChild(divmult)
+                divmult.className='pari'
+        
+        
+            },
+        
+            sommeImpair: function(){
+            pageAccuei()
+        
+                main.innerHTML=""
+                
+                var nbre =prompt('Entrer un nombre ')
+                let divSomme = document.createElement('div')
+                divSomme.innerHTML += `La somme des nombre impair jusqu'a  ${nbre} est : <br><br>`;
+                let somme=0
+                
+                let i=1
+                divSomme.innerHTML += ` ${i}`;
+                while(i<nbre-1)  {
+                    i+=2
+                    divSomme.innerHTML += ` + ${i} `;
+                somme+=i
+                }
+                    divSomme.innerHTML += ` = ${somme}`;
+                main.appendChild(divSomme)
+                divSomme.className='pari'
+        
+            }
+        
+        
+        }
+        gestion_des_algo()
+        // algo.permutation()
+        // pageAccuei()
+        // console.log(algo);
+        </script>
+</body>
+</html>
